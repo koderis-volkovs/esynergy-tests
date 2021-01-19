@@ -13,10 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Just disabling homepage
+Route::get('/', function() {
+    if(auth()->check())
+    {
+        return redirect()->route('products.index');
+    }
+
+    return redirect()->route('login');
 });
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function() {
+    // Used "products" url to rename all named routes to products.*** without names array
+    Route::resource('products', 'ProductController');
+});
+
