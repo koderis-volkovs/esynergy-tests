@@ -2,21 +2,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="card">
+        <div class="card-header">Kā lietot API?</div>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+        <div class="card-body">
+
+            <ol>
+                <li>Veicam pieprasījumu uz <code>{{ route('api.products') }}</code></li>
+                <li>Ja vēlamies izvadīt vairāk rezultātu, tad izmantojam <code>limit=</code> attribūtu</li>
+                <li>Ja vēlamies attēlot visus produktus, kas tika izveidoti sākot ar konkrētu datumu, tad izmantojam <code>from=</code> attribūtu</li>
+                <li>Ja vēlamies attēlot visus produktus, kas tika izveidoti līdz konkrētajam datumam, tad izmantojam <code>to=</code> attribūtu</li>
+            </ol>
+
         </div>
     </div>
 </div>

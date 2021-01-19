@@ -15,12 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // Just disabling homepage
 Route::get('/', function() {
-    if(auth()->check())
-    {
-        return redirect()->route('products.index');
-    }
-
-    return redirect()->route('login');
+    return view('home');
 });
 
 

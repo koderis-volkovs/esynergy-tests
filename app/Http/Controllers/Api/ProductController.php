@@ -14,10 +14,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $limit = $request->input('limit') ?? 10;
+
         $products = Product::orderBy('created_at', 'DESC')
-            ->limit(10)
+            ->when(true, function ($query) use ($request) {
+                return $query->where('created_at', '>', $request->input('created_at'));
+            })
+            ->limit($limit)
             ->get();
 
         return $products->toJson();
