@@ -51,6 +51,8 @@ class ProductController extends Controller
 
         $product = Product::create($request->validated());
 
+        $product->logs()->create(['type' => 'create', 'user_id' => auth()->user()->id]);
+
         return redirect()->back()->with(['success' => 'Produkts tika veiksmīgi pievienots']);
     }
 
@@ -62,6 +64,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->logs()->create(['type' => 'view', 'user_id' => auth()->user()->id]);
+
         return view('product.show', compact('product'));
     }
 
@@ -86,6 +90,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $product->update($request->validated());
+        $product->logs()->create(['type' => 'edit', 'user_id' => auth()->user()->id]);
 
         return redirect()->back()->with(['success' => 'Produkts tika veiksmīgi labots']);
     }
@@ -99,6 +104,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        $product->logs()->create(['type' => 'delete', 'user_id' => auth()->user()->id]);
 
         return redirect()->back()->with(['success' => 'Produkts tika dzēsts.']);
     }
